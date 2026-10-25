@@ -5,10 +5,15 @@
 Signature-based detection catches attacks someone already wrote a rule for; it struggles with variants and novel behaviour. Behavioural and ML approaches look at *how a host acts* instead. The task is to build a prototype that ingests network traffic, extracts features, detects intrusions, and presents results an analyst can act on. I built a **hybrid** detector: an auditable rule layer for known attack behaviours plus an unsupervised anomaly model for everything the rules do not describe.
 
 ## 2. Objectives
-(1) Obtain traffic containing benign behaviour, reconnaissance, DoS and one further attack. (2) Extract features that separate those behaviours. (3) Detect them with a justified method. (4) Explain every alert (what, why, how severe/confident). (5) Provide a runnable CLI and dashboard. (6) Evaluate honestly, including failures, and state limitations.
+1. Obtain traffic containing benign behaviour, reconnaissance, DoS and one further attack.
+2. Extract features that separate those behaviours.
+3. Detect them with a justified method.
+4. Explain every alert (what, why, how severe/confident).
+5. Provide a runnable CLI and dashboard.
+6. Evaluate honestly, including failures, and state limitations.
 
 ## 3. Traffic data
-**Choice: a seeded synthetic LAN, written as real pcap files.** Attacks may only be run against systems one owns, and I had no authorised multi-host lab for this assignment window; a deterministic generator also makes every number here reproducible (`python generate_traffic.py`). The frames are valid Ethernet/IPv4/TCP/UDP/ICMP/ARP with correct checksums, open in Wireshark, and can be replayed in a lab with `tcpreplay`. The reader also accepts real classic-pcap captures.
+**Choice: a seeded synthetic LAN, written as real pcap files.** Attacks may only be run against systems one owns, and a multi-host lab was not available for this assignment; a deterministic generator also makes every number here reproducible (`python generate_traffic.py`). The frames are valid Ethernet/IPv4/TCP/UDP/ICMP/ARP with correct checksums, open in Wireshark, and can be replayed in a lab with `tcpreplay`. The reader also accepts real classic-pcap captures.
 
 Topology: one /24 with a gateway, web, SSH and DNS server, 12 benign clients and one attacker. Benign behaviour is a Poisson mix per client: HTTP(S) sessions (55 %), DNS (30 %), interactive SSH (7 %), ping (8 %), plus ARP bootstrap and refresh. Eight captures:
 
@@ -69,7 +74,14 @@ Metrics are per (window, source) row; victim servers during an attack are exclud
 
 Including the S5 stress test (50 attack rows, 2,137 rows total): rules 100 % precision / 54 % recall; ML 50 % / 36 %; hybrid 60 % / 54 %. These aggregates are dominated by a deliberately hard case, so per-scenario results matter more.
 
-**Scenario results.** *S1:* zero alerts in all modes. *S2:* scan found in the first window (466 ports in 5 s). *S3:* flood found in the first window (~400 conn/s, 100 % unfinished); impact below. *S4a:* brute force found in all 10 windows. *S4b:* all 8 windows flagged, attributed to the attacker MAC/IP, not the spoofed gateway IP. *Detection latency* equals one window (5 s) in every case - a design trade-off between speed and statistical stability.
+**Scenario results.**
+
+- **S1 (normal):** zero alerts in all modes.
+- **S2 (port scan):** found in the first window (466 ports in 5 s).
+- **S3 (SYN flood):** found in the first window (~400 conn/s, 100 % unfinished); impact below.
+- **S4a (brute force):** found in all 10 windows.
+- **S4b (ARP spoofing):** all 8 windows flagged, attributed to the attacker MAC/IP, not the spoofed gateway IP.
+- **Detection latency** equals one window (5 s) in every case - a design trade-off between speed and statistical stability.
 
 **S3 - impact of the flood on the web server (legitimate clients only):**
 
@@ -79,17 +91,22 @@ Including the S5 stress test (50 attack rows, 2,137 rows total): rules 100 % pre
 | During | 558 | 368 | 13 % | 39.9 ms |
 | After | 57 | 1.6 | 100 % | 0.8 ms |
 
+![Figure 1 - S3 SYN flood: per-source packet rate; the attacker (192.168.10.200) and the victim server stand out during the shaded alert windows.](results/figures/s3_dos_timeline.png)
+
 (Server degradation is *modelled* by the generator - success probability and latency multiplier during the flood - then measured from the pcap; it is an illustration of the metric pipeline, not an empirical server result.)
 
 **Errors and difficult cases.**
+
 - *False positive (S3, ML only):* the web server at t = 110 s scored 0.697 vs. a 0.696 threshold - a marginal, Low-severity alert on a normal busy window.
 - *S5 flash crowd (false positives):* the ML layer raised **17 Low/Medium `ANOMALY` alerts** on benign clients (e.g. `max_conns_per_target = 25`, benign median 1). Rules stayed silent because the handshakes completed. This is the central lesson: volume alone is not malice. Hybrid does not remove these ML-only alerts; it labels them as uncategorised, low-severity anomalies that an analyst can triage in seconds.
 - *S5 slow scan (false negative):* **all 23 attack windows missed by every mode.** One port every ~3 s is 1-2 ports per window - below the scan rule, and indistinguishable from a normal client to the Isolation Forest.
 - *ARP spoofing is invisible to the ML layer alone* (0/8). In benign training data `arp_unsolicited` is always 0, so the trees have no split point on it - an Isolation Forest cannot learn from a feature that never varied. The rule layer catches it; this is the strongest argument for the hybrid design.
 - *Rule layer precision of 100 %* partly reflects that the benign data contains no scanner-like benign hosts (vulnerability scanners, monitoring, backup jobs); real networks do.
 
+![Figure 2 - S5 ambiguous capture: the flash crowd at t = 60-70 s raises many low-severity anomaly alerts; the slow scan never appears.](results/figures/s5_ambiguous_timeline.png)
+
 ## 8. Network and security considerations
-- **Performance / inline use.** This is an offline, windowed analyser: ~135,000 packets/s parse + feature extraction and 168 ms for model scoring on a 21,872-packet capture (single core, Python). Inline (IPS) deployment would add latency and a failure mode on the data path; I would deploy passively on a SPAN/TAP port. Windowing means alerts lag by at least one window.
+- **Performance / inline use.** This is an offline, windowed analyser: ~135,000 packets/s parse + feature extraction and 168 ms for rule + model scoring once features exist, on a 21,872-packet capture (single core, Python). Inline (IPS) deployment would add latency and a failure mode on the data path; I would deploy passively on a SPAN/TAP port. Windowing means alerts lag by at least one window.
 - **Completeness of capture.** Drops under load, asymmetric routing (seeing only one direction) and encryption break flow tracking: a missed SYN-ACK looks like a failed connection and inflates `fail_ratio`. Encrypted payloads are irrelevant here because only headers and timing are used.
 - **Evasion.** Low-and-slow scans (demonstrated), distributed scans from many sources, spoofed-source SYN floods (per-source features see each source once; a per-*destination* SYN/SYN-ACK imbalance rule is needed), mimicking benign rates, and slowly poisoning an ML baseline if training data is attacker-influenced.
 - **False-positive cost.** Alerts that block (IPS) can cut off a legitimate flash crowd - exactly the S5 case. I therefore keep ML-only alerts non-blocking, low-severity, and explained.
@@ -99,7 +116,12 @@ Including the S5 stress test (50 attack rows, 2,137 rows total): rules 100 % pre
 Synthetic data written by the same author as the detector is the main weakness: thresholds and features fit attacks I know how I generated. The traffic is far simpler than a real network (one subnet, no IPv6, no VPN, no real application diversity), attack intensity is fixed, ML training uses ~880 benign rows, and the evaluation set is small (27 attack rows in S1-S4). Metrics here show that the pipeline works and where it breaks, not how it would perform in production. IPv6/ND spoofing, TCP stealth scans (FIN/NULL/Xmas), UDP floods and application-layer attacks are out of scope.
 
 ## 10. Future improvements
-(1) Validate on CICIDS2017 and on live lab captures (Mininet + nmap/hping3/hydra/arpspoof). (2) Multi-timescale features (5 s and 5 min) to catch slow scans. (3) Per-destination SYN/SYN-ACK imbalance for spoofed floods. (4) A supervised classifier or calibrated confidence once labelled real data exists. (5) Allow-listing known scanners/monitors and a feedback loop from analyst verdicts. (6) Streaming ingestion (Zeek logs / live capture) and IPv6 support.
+1. Validate on CICIDS2017 and on live lab captures (Mininet + nmap/hping3/hydra/arpspoof).
+2. Multi-timescale features (5 s and 5 min) to catch slow scans.
+3. Per-destination SYN/SYN-ACK imbalance for spoofed floods.
+4. A supervised classifier or calibrated confidence once labelled real data exists.
+5. Allow-listing known scanners/monitors and a feedback loop from analyst verdicts.
+6. Streaming ingestion (Zeek logs / live capture) and IPv6 support.
 
 ## Reproducing
 `python generate_traffic.py && python ids.py train && python evaluate.py` regenerates every number and figure in this report (see `README.md`).
