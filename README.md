@@ -15,7 +15,7 @@ benign traffic only (to surface *unusual* behaviour that has no rule).
 ## Quick start
 
 ```bash
-git clone <your-repo-url> && cd <repo>
+git clone https://github.com/Pujitha952/megaminds-ids.git && cd megaminds-ids
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
@@ -87,8 +87,8 @@ files; nothing is sent on a network. Do not run scanners or floods against syste
 
 ## AI-assistance disclosure (Section 12)
 
-   I used an AI assistant (Claude) during development to help scaffold the code,
-   generate the synthetic traffic scripts, and draft documentation. I reviewed the
-   code, ran the full pipeline myself (traffic generation, training, evaluation,
-   tests), and I can explain the traffic design, the features, the detection rules,
-   the Isolation Forest layer, the results and the limitations. See docs/EXPLAIN_IT.md.
+I used an AI assistant (Claude) during development to help scaffold the code,
+generate the synthetic traffic scripts, and draft documentation. I reviewed the
+code, ran the full pipeline myself (traffic generation, training, evaluation,
+tests), and I can explain the traffic design, the features, the detection rules,
+the Isolation Forest layer, the results and the limitations. See docs/EXPLAIN_IT.md.
