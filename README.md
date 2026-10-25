@@ -87,6 +87,8 @@ files; nothing is sent on a network. Do not run scanners or floods against syste
 
 ## AI-assistance disclosure (Section 12)
 
-AI tooling (Claude) was used to help scaffold and write parts of this code and documentation. The author
-is responsible for - and can explain - the design choices; see `docs/EXPLAIN_IT.md`.
-*(Edit this paragraph so it accurately describes your own contribution.)*
+   I used an AI assistant (Claude) during development to help scaffold the code,
+   generate the synthetic traffic scripts, and draft documentation. I reviewed the
+   code, ran the full pipeline myself (traffic generation, training, evaluation,
+   tests), and I can explain the traffic design, the features, the detection rules,
+   the Isolation Forest layer, the results and the limitations. See docs/EXPLAIN_IT.md.
