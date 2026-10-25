@@ -1,0 +1,27 @@
+{
+  "scenario": "s5_ambiguous",
+  "events": [
+    {
+      "type": "slow_scan",
+      "attacker": "192.168.10.200",
+      "start": 10.0,
+      "end": 124.64948651822867,
+      "victims": [
+        "192.168.10.10"
+      ],
+      "note": "1 port every ~3 s: evades per-window thresholds",
+      "expected_detectable": false
+    }
+  ],
+  "benign_events": [
+    {
+      "type": "flash_crowd",
+      "start": 60.0,
+      "end": 66.0,
+      "note": "12 legit clients x 25 successful HTTP connections in 6 s"
+    }
+  ],
+  "duration": 120.0,
+  "seed": 16,
+  "attacker": "192.168.10.200"
+}

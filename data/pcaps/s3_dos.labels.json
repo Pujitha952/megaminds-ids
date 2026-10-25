@@ -1,0 +1,20 @@
+{
+  "scenario": "s3_dos",
+  "events": [
+    {
+      "type": "syn_flood",
+      "attacker": "192.168.10.200",
+      "start": 40.0,
+      "end": 70.0,
+      "victims": [
+        "192.168.10.10"
+      ],
+      "note": "hping3 --flood style, ~400 SYN/s to :80",
+      "expected_detectable": true
+    }
+  ],
+  "benign_events": [],
+  "duration": 120.0,
+  "seed": 13,
+  "attacker": "192.168.10.200"
+}

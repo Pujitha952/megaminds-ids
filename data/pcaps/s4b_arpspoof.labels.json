@@ -1,0 +1,21 @@
+{
+  "scenario": "s4b_arpspoof",
+  "events": [
+    {
+      "type": "arp_spoof",
+      "attacker": "192.168.10.200",
+      "start": 40.0,
+      "end": 80.0,
+      "victims": [
+        "192.168.10.101",
+        "192.168.10.1"
+      ],
+      "note": "gratuitous ARP replies poisoning victim + gateway, 1 Hz",
+      "expected_detectable": true
+    }
+  ],
+  "benign_events": [],
+  "duration": 120.0,
+  "seed": 15,
+  "attacker": "192.168.10.200"
+}

@@ -1,0 +1,20 @@
+{
+  "scenario": "s2_portscan",
+  "events": [
+    {
+      "type": "port_scan",
+      "attacker": "192.168.10.200",
+      "start": 30.0,
+      "end": 40.399321445389766,
+      "victims": [
+        "192.168.10.10"
+      ],
+      "note": "nmap -sS style, 1000 ports @ ~100/s",
+      "expected_detectable": true
+    }
+  ],
+  "benign_events": [],
+  "duration": 120.0,
+  "seed": 12,
+  "attacker": "192.168.10.200"
+}

@@ -1,0 +1,459 @@
+{
+  "per_scenario": {
+    "s1_normal": {
+      "title": "S1 Normal baseline",
+      "rules": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 347,
+        "precision": NaN,
+        "recall": NaN,
+        "f1": NaN,
+        "accuracy": 1.0,
+        "alerts": 0,
+        "victim_side_alerts": 0
+      },
+      "ml": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 347,
+        "precision": NaN,
+        "recall": NaN,
+        "f1": NaN,
+        "accuracy": 1.0,
+        "alerts": 0,
+        "victim_side_alerts": 0
+      },
+      "hybrid": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 347,
+        "precision": NaN,
+        "recall": NaN,
+        "f1": NaN,
+        "accuracy": 1.0,
+        "alerts": 0,
+        "victim_side_alerts": 0
+      }
+    },
+    "s2_portscan": {
+      "title": "S2 Port scan",
+      "rules": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 347,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "accuracy": 1.0,
+        "alerts": 3,
+        "victim_side_alerts": 0
+      },
+      "ml": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 1,
+        "TN": 347,
+        "precision": 1.0,
+        "recall": 0.6666666666666666,
+        "f1": 0.8,
+        "accuracy": 0.9971428571428571,
+        "alerts": 4,
+        "victim_side_alerts": 2
+      },
+      "hybrid": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 347,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "accuracy": 1.0,
+        "alerts": 5,
+        "victim_side_alerts": 2
+      }
+    },
+    "s3_dos": {
+      "title": "S3 SYN flood (DoS)",
+      "rules": {
+        "TP": 6,
+        "FP": 0,
+        "FN": 0,
+        "TN": 354,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "accuracy": 1.0,
+        "alerts": 6,
+        "victim_side_alerts": 0
+      },
+      "ml": {
+        "TP": 6,
+        "FP": 1,
+        "FN": 0,
+        "TN": 353,
+        "precision": 0.8571428571428571,
+        "recall": 1.0,
+        "f1": 0.923076923076923,
+        "accuracy": 0.9972222222222222,
+        "alerts": 7,
+        "victim_side_alerts": 0
+      },
+      "hybrid": {
+        "TP": 6,
+        "FP": 1,
+        "FN": 0,
+        "TN": 353,
+        "precision": 0.8571428571428571,
+        "recall": 1.0,
+        "f1": 0.923076923076923,
+        "accuracy": 0.9972222222222222,
+        "alerts": 7,
+        "victim_side_alerts": 0
+      }
+    },
+    "s4a_bruteforce": {
+      "title": "S4a SSH brute force",
+      "rules": {
+        "TP": 10,
+        "FP": 0,
+        "FN": 0,
+        "TN": 352,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "accuracy": 1.0,
+        "alerts": 10,
+        "victim_side_alerts": 0
+      },
+      "ml": {
+        "TP": 10,
+        "FP": 0,
+        "FN": 0,
+        "TN": 352,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "accuracy": 1.0,
+        "alerts": 10,
+        "victim_side_alerts": 0
+      },
+      "hybrid": {
+        "TP": 10,
+        "FP": 0,
+        "FN": 0,
+        "TN": 352,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "accuracy": 1.0,
+        "alerts": 10,
+        "victim_side_alerts": 0
+      }
+    },
+    "s4b_arpspoof": {
+      "title": "S4b ARP spoofing",
+      "rules": {
+        "TP": 8,
+        "FP": 0,
+        "FN": 0,
+        "TN": 350,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "accuracy": 1.0,
+        "alerts": 8,
+        "victim_side_alerts": 0
+      },
+      "ml": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 8,
+        "TN": 350,
+        "precision": NaN,
+        "recall": 0.0,
+        "f1": NaN,
+        "accuracy": 0.9776536312849162,
+        "alerts": 0,
+        "victim_side_alerts": 0
+      },
+      "hybrid": {
+        "TP": 8,
+        "FP": 0,
+        "FN": 0,
+        "TN": 350,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "accuracy": 1.0,
+        "alerts": 8,
+        "victim_side_alerts": 0
+      }
+    },
+    "s5_ambiguous": {
+      "title": "S5 Ambiguous (slow scan + flash crowd)",
+      "rules": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 23,
+        "TN": 337,
+        "precision": NaN,
+        "recall": 0.0,
+        "f1": NaN,
+        "accuracy": 0.9361111111111111,
+        "alerts": 0,
+        "victim_side_alerts": 0
+      },
+      "ml": {
+        "TP": 0,
+        "FP": 17,
+        "FN": 23,
+        "TN": 320,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": NaN,
+        "accuracy": 0.8888888888888888,
+        "alerts": 19,
+        "victim_side_alerts": 2
+      },
+      "hybrid": {
+        "TP": 0,
+        "FP": 17,
+        "FN": 23,
+        "TN": 320,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": NaN,
+        "accuracy": 0.8888888888888888,
+        "alerts": 19,
+        "victim_side_alerts": 2
+      }
+    }
+  },
+  "overall": {
+    "rules": {
+      "TP": 27,
+      "FP": 0,
+      "FN": 23,
+      "TN": 2087,
+      "precision": 1.0,
+      "recall": 0.54,
+      "f1": 0.7012987012987013,
+      "accuracy": 0.9892372484791764
+    },
+    "ml": {
+      "TP": 18,
+      "FP": 18,
+      "FN": 32,
+      "TN": 2069,
+      "precision": 0.5,
+      "recall": 0.36,
+      "f1": 0.41860465116279066,
+      "accuracy": 0.9766027140851661
+    },
+    "hybrid": {
+      "TP": 27,
+      "FP": 18,
+      "FN": 23,
+      "TN": 2069,
+      "precision": 0.6,
+      "recall": 0.54,
+      "f1": 0.5684210526315789,
+      "accuracy": 0.9808142255498362
+    }
+  },
+  "overall_s1_s4": {
+    "rules": {
+      "TP": 27,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1750,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "accuracy": 1.0
+    },
+    "ml": {
+      "TP": 18,
+      "FP": 1,
+      "FN": 9,
+      "TN": 1749,
+      "precision": 0.9473684210526315,
+      "recall": 0.6666666666666666,
+      "f1": 0.782608695652174,
+      "accuracy": 0.9943725379853686
+    },
+    "hybrid": {
+      "TP": 27,
+      "FP": 1,
+      "FN": 0,
+      "TN": 1749,
+      "precision": 0.9642857142857143,
+      "recall": 1.0,
+      "f1": 0.9818181818181818,
+      "accuracy": 0.9994372537985369
+    }
+  },
+  "events": [
+    {
+      "scenario": "s2_portscan",
+      "mode": "rules",
+      "event": "port_scan",
+      "detected": true,
+      "correctly_typed": true,
+      "time_to_detect_s": 5.0,
+      "alert_windows": 3
+    },
+    {
+      "scenario": "s2_portscan",
+      "mode": "ml",
+      "event": "port_scan",
+      "detected": true,
+      "correctly_typed": false,
+      "time_to_detect_s": 5.0,
+      "alert_windows": 2
+    },
+    {
+      "scenario": "s2_portscan",
+      "mode": "hybrid",
+      "event": "port_scan",
+      "detected": true,
+      "correctly_typed": true,
+      "time_to_detect_s": 5.0,
+      "alert_windows": 3
+    },
+    {
+      "scenario": "s3_dos",
+      "mode": "rules",
+      "event": "syn_flood",
+      "detected": true,
+      "correctly_typed": true,
+      "time_to_detect_s": 5.0,
+      "alert_windows": 6
+    },
+    {
+      "scenario": "s3_dos",
+      "mode": "ml",
+      "event": "syn_flood",
+      "detected": true,
+      "correctly_typed": false,
+      "time_to_detect_s": 5.0,
+      "alert_windows": 6
+    },
+    {
+      "scenario": "s3_dos",
+      "mode": "hybrid",
+      "event": "syn_flood",
+      "detected": true,
+      "correctly_typed": true,
+      "time_to_detect_s": 5.0,
+      "alert_windows": 6
+    },
+    {
+      "scenario": "s4a_bruteforce",
+      "mode": "rules",
+      "event": "ssh_bruteforce",
+      "detected": true,
+      "correctly_typed": true,
+      "time_to_detect_s": 5.0,
+      "alert_windows": 10
+    },
+    {
+      "scenario": "s4a_bruteforce",
+      "mode": "ml",
+      "event": "ssh_bruteforce",
+      "detected": true,
+      "correctly_typed": false,
+      "time_to_detect_s": 5.0,
+      "alert_windows": 10
+    },
+    {
+      "scenario": "s4a_bruteforce",
+      "mode": "hybrid",
+      "event": "ssh_bruteforce",
+      "detected": true,
+      "correctly_typed": true,
+      "time_to_detect_s": 5.0,
+      "alert_windows": 10
+    },
+    {
+      "scenario": "s4b_arpspoof",
+      "mode": "rules",
+      "event": "arp_spoof",
+      "detected": true,
+      "correctly_typed": true,
+      "time_to_detect_s": 5.0,
+      "alert_windows": 8
+    },
+    {
+      "scenario": "s4b_arpspoof",
+      "mode": "ml",
+      "event": "arp_spoof",
+      "detected": false,
+      "correctly_typed": false,
+      "time_to_detect_s": null,
+      "alert_windows": 0
+    },
+    {
+      "scenario": "s4b_arpspoof",
+      "mode": "hybrid",
+      "event": "arp_spoof",
+      "detected": true,
+      "correctly_typed": true,
+      "time_to_detect_s": 5.0,
+      "alert_windows": 8
+    },
+    {
+      "scenario": "s5_ambiguous",
+      "mode": "rules",
+      "event": "slow_scan",
+      "detected": false,
+      "correctly_typed": false,
+      "time_to_detect_s": null,
+      "alert_windows": 0
+    },
+    {
+      "scenario": "s5_ambiguous",
+      "mode": "ml",
+      "event": "slow_scan",
+      "detected": false,
+      "correctly_typed": false,
+      "time_to_detect_s": null,
+      "alert_windows": 0
+    },
+    {
+      "scenario": "s5_ambiguous",
+      "mode": "hybrid",
+      "event": "slow_scan",
+      "detected": false,
+      "correctly_typed": false,
+      "time_to_detect_s": null,
+      "alert_windows": 0
+    }
+  ],
+  "dos_impact": {
+    "before": {
+      "server_inbound_syn_per_s": 1.0999999999999999,
+      "legit_handshake_success_pct": 100.0,
+      "legit_median_handshake_ms": 0.8786916732788086,
+      "total_pkts_per_s": 49.925000000000004
+    },
+    "during": {
+      "server_inbound_syn_per_s": 368.06666666666666,
+      "legit_handshake_success_pct": 13.095238095238095,
+      "legit_median_handshake_ms": 39.94250297546387,
+      "total_pkts_per_s": 557.9333333333333
+    },
+    "after": {
+      "server_inbound_syn_per_s": 1.6222222222222222,
+      "legit_handshake_success_pct": 100.0,
+      "legit_median_handshake_ms": 0.8029937744140625,
+      "total_pkts_per_s": 57.480000000000004
+    }
+  }
+}

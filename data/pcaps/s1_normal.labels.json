@@ -1,0 +1,8 @@
+{
+  "scenario": "s1_normal",
+  "events": [],
+  "benign_events": [],
+  "duration": 120.0,
+  "seed": 2,
+  "attacker": "192.168.10.200"
+}
